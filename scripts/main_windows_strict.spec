@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['scripts/main_windows_strict.py'],
+    ['C:\\Users\\vladi\\OneDrive\\Документы\\Скрипт\\Скрипт скачивания\\Скрипт YT-Download v40\\scripts\\main_windows_strict.py'],
     pathex=[],
     binaries=[],
     datas=[('icons', 'icons')],
