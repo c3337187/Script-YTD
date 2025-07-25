@@ -187,11 +187,7 @@ def flash_tray_icon(icon: pystray.Icon, image: Image.Image, duration: float = 0.
 DEFAULT_CONFIG = {
     'add_hotkey': 'ctrl+space',
     'download_hotkey': 'ctrl+shift+space',
-    'clipboard_only': 'false',
 }
-
-# Loaded configuration shared across functions
-CONFIG: dict = DEFAULT_CONFIG.copy()
 
 
 def ensure_directories() -> None:
@@ -206,9 +202,7 @@ def load_config() -> dict:
     parser = configparser.ConfigParser()
     if parser.read(CONFIG_FILE, encoding='utf-8'):
         try:
-            hotkeys = dict(parser.items('hotkeys')) if parser.has_section('hotkeys') else {}
-            options = dict(parser.items('options')) if parser.has_section('options') else {}
-            data = {**hotkeys, **options}
+            data = dict(parser.items('hotkeys'))
             return {**DEFAULT_CONFIG, **data}
         except Exception as e:
             logging.error('Ошибка загрузки конфигурации: %s', e)
@@ -220,9 +214,6 @@ def save_config(cfg: dict) -> None:
     parser['hotkeys'] = {
         'add_hotkey': cfg.get('add_hotkey', DEFAULT_CONFIG['add_hotkey']),
         'download_hotkey': cfg.get('download_hotkey', DEFAULT_CONFIG['download_hotkey'])
-    }
-    parser['options'] = {
-        'clipboard_only': cfg.get('clipboard_only', DEFAULT_CONFIG['clipboard_only'])
     }
     try:
         with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
@@ -484,8 +475,7 @@ def add_link_from_clipboard() -> None:
 
     logging.info('Hotkey triggered: copying selection')
 
-    use_clipboard = CONFIG.get('clipboard_only', DEFAULT_CONFIG['clipboard_only']).lower() == 'true'
-    captured = read_clipboard() if use_clipboard else copy_selected_text()
+    captured = copy_selected_text()
     url = ""
     if captured:
         m = re.search(r"https?://\S+", captured)
@@ -532,9 +522,7 @@ def main() -> None:
     ensure_single_instance()
     ensure_directories()
     ensure_system_files()
-    global CONFIG
-    CONFIG = load_config()
-    config = CONFIG
+    config = load_config()
     logging.info('Script started')
 
     add_hotkey = config.get('add_hotkey', DEFAULT_CONFIG['add_hotkey'])
