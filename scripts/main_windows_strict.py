@@ -127,6 +127,15 @@ INFO_FILE = os.path.join(SYSTEM_DIR, 'info.txt')
 os.makedirs(SYSTEM_DIR, exist_ok=True)
 
 
+def ensure_system_files() -> None:
+    """Create default files in the ``system`` directory if missing."""
+    if not os.path.exists(CONFIG_FILE):
+        save_config(DEFAULT_CONFIG)
+    for path in (DOWNLOAD_LIST, LOG_FILE, INFO_FILE):
+        if not os.path.exists(path):
+            open(path, 'a', encoding='utf-8').close()
+
+
 # Эти переменные инициализируются после загрузки конфигурации
 DOWNLOADS_FOLDER = os.path.join(ROOT_DIR, 'Downloads')
 VIDEOS_FOLDER = os.path.join(DOWNLOADS_FOLDER, 'Videos')
@@ -511,10 +520,10 @@ def add_link_from_clipboard() -> None:
 def main() -> None:
     """Запускает горячие клавиши и значок в трее."""
     ensure_single_instance()
-    config = load_config()
     ensure_directories()
-    if not os.path.exists(DOWNLOAD_LIST):
-        open(DOWNLOAD_LIST, 'a', encoding='utf-8').close()
+    ensure_system_files()
+    config = load_config()
+    logging.info('Script started')
 
     add_hotkey = config.get('add_hotkey', DEFAULT_CONFIG['add_hotkey'])
     download_hotkey = config.get('download_hotkey', DEFAULT_CONFIG['download_hotkey'])
@@ -604,6 +613,7 @@ def main() -> None:
     print(f"Значок размещён в трее. Горячие клавиши {add_hotkey} и {download_hotkey} активны.")
     tray_icon.run()
     hotkey_manager.unregister_all()
+    logging.info('Script stopped')
     print('Скрипт завершён.')
 
 if __name__ == '__main__':
