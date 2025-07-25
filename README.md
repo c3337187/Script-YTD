@@ -23,13 +23,13 @@ icon in the system tray and reacts to global hotkeys.
 
 ## Usage
 
-Select a link in your browser and press `Ctrl+Space`. The script copies the
-selection to the clipboard and appends the URL to `system/download-list.txt`.
+Copy a link to your clipboard and press `Ctrl+Space`. The script takes the
+clipboard contents and appends the URL to `system/download-list.txt`.
 
 ## Changing hotkeys
 
 The script registers global shortcuts. By default `Ctrl+Space` adds the
-current selection to the list and `Ctrl+Shift+Space` starts downloading. You
+ contents of the clipboard to the list and `Ctrl+Shift+Space` starts downloading. You
 can redefine these keys at runtime: right-click the tray icon and choose
 **Горячие клавиши**, then press the new combination and hit Enter. The chosen
 values are stored in `system/config.ini` and loaded on the next launch.

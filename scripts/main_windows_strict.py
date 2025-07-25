@@ -187,7 +187,10 @@ def flash_tray_icon(icon: pystray.Icon, image: Image.Image, duration: float = 0.
 DEFAULT_CONFIG = {
     'add_hotkey': 'ctrl+space',
     'download_hotkey': 'ctrl+shift+space',
-    'clipboard_only': 'false',
+    # Only read the current clipboard contents when adding a link.
+    # This avoids sending Ctrl+C and works when the user has copied
+    # the URL manually before pressing the hotkey.
+    'clipboard_only': 'true',
 }
 
 # Loaded configuration shared across functions
