@@ -26,14 +26,6 @@ icon in the system tray and reacts to global hotkeys.
 Select a link in your browser and press `Ctrl+Space`. The script copies the
 selection to the clipboard and appends the URL to `system/download-list.txt`.
 
-## Changing hotkeys
-
-The script registers global shortcuts. By default `Ctrl+Space` adds the
-current selection to the list and `Ctrl+Shift+Space` starts downloading. You
-can redefine these keys at runtime: right-click the tray icon and choose
-**Горячие клавиши**, then press the new combination and hit Enter. The chosen
-values are stored in `system/config.ini` and loaded on the next launch.
-
 ## Manual commands
 
 Install dependencies manually:
@@ -65,11 +57,3 @@ The first launch creates a `Downloads/` directory with these subfolders:
 All runtime files (config, logs and download list) are stored in the `system/` folder.
 The repository includes an empty `system/` directory; required files will be
 created automatically on first launch.
-
-## Configuration
-
-Runtime options are stored in `system/config.ini`.
-Set `clipboard_only = true` under the `[options]` section to use the current
-clipboard contents when adding a link instead of sending `Ctrl+C` to copy the
-selection. This is useful for browsers or programs that block automated copy
-commands.

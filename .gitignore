@@ -4,6 +4,4 @@ system/*
 Downloads/
 build/
 __pycache__/
-# Ignore placeholder numeric files in icons directory
-icons/[0-9]*
 
