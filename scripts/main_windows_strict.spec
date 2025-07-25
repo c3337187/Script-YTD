@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['main_windows_strict.py'],
+    ['scripts/main_windows_strict.py'],
     pathex=[],
     binaries=[],
     datas=[('icons', 'icons')],

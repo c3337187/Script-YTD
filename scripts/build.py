@@ -47,6 +47,7 @@ def create_runtime_dirs() -> None:
 def build_exe() -> None:
     """Build executable using PyInstaller."""
     sep = ';' if sys.platform == 'win32' else ':'
+    script = os.path.join(os.path.dirname(__file__), 'main_windows_strict.py')
     cmd = [
         sys.executable, '-m', 'PyInstaller',
         '--noconsole',
@@ -55,7 +56,7 @@ def build_exe() -> None:
         '--add-data', f'icons{sep}icons',
         '--workpath', 'build',
         '--distpath', 'system',
-        'main_windows_strict.py',
+        script,
     ]
     subprocess.check_call(cmd)
 
