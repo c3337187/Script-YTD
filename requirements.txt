@@ -1,0 +1,9 @@
+yt-dlp
+requests
+beautifulsoup4
+keyboard
+pystray
+pyperclip
+pillow
+pyinstaller
+pywin32
