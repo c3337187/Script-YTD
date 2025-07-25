@@ -57,3 +57,11 @@ The first launch creates a `Downloads/` directory with these subfolders:
 All runtime files (config, logs and download list) are stored in the `system/` folder.
 The repository includes an empty `system/` directory; required files will be
 created automatically on first launch.
+
+## Configuration
+
+Runtime options are stored in `system/config.ini`.
+Set `clipboard_only = true` under the `[options]` section to use the current
+clipboard contents when adding a link instead of sending `Ctrl+C` to copy the
+selection. This is useful for browsers or programs that block automated copy
+commands.
