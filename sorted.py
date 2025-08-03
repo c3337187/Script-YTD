@@ -27,7 +27,7 @@ def copy_files(list_path: Path) -> None:
 
 def main() -> None:
     script_dir = Path(__file__).resolve().parent
-    list_file = script_dir / "download-list.txt"
+    list_file = script_dir / "sorted-list.txt"
     copy_files(list_file)
 
 if __name__ == "__main__":
