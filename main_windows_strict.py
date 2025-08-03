@@ -472,6 +472,19 @@ def download_pinterest_image(url, folder):
         print(f"Ошибка при скачивании изображения с Pinterest: {e}")
 
 
+def download_direct_image(url, folder):
+    try:
+        response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+        response.raise_for_status()
+        filename = os.path.join(folder, os.path.basename(url.split("?")[0]))
+        with open(filename, "wb") as f:
+            f.write(response.content)
+        print(f"Изображение сохранено как: {filename}")
+    except Exception as e:
+        logging.error('Ошибка при скачивании изображения: %s', e)
+        print(f"Ошибка при скачивании изображения: {e}")
+
+
 def download_wb_images(url: str, folder: str) -> None:
     """Скачивает все изображения товара Wildberries."""
     try:
@@ -563,10 +576,17 @@ def download_wb_images(url: str, folder: str) -> None:
 
 def handle_url(url: str) -> None:
     """Определяет тип ссылки и запускает скачивание."""
-    hostname = urlparse(url).hostname or ""
+    parsed = urlparse(url)
+    hostname = parsed.hostname or ""
     hostname = hostname.lower()
+    path = parsed.path.lower()
 
-    if "youtube.com/playlist" in url:
+    if path.endswith((".jpg", ".jpeg", ".png", ".webp", ".gif")):
+        logging.info('Скачиваем изображение по прямой ссылке: %s', url)
+        print(f"Это прямая ссылка на изображение. Скачиваем в: {PICTURES_FOLDER}")
+        download_direct_image(url, PICTURES_FOLDER)
+
+    elif "youtube.com/playlist" in url:
         logging.info('Скачиваем плейлист: %s', url)
         print(f"Это плейлист YouTube. Скачиваем всё в: {PLAYLIST_FOLDER}")
         download_playlist(url, PLAYLIST_FOLDER)
