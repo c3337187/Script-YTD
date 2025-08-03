@@ -52,3 +52,17 @@ The first launch creates a `Downloads/` directory with these subfolders:
 - `Pictures/Wildberries/` – Wildberries product images
 
 All runtime files (config, logs and the download list) are stored in the `system/` folder next to the executable.
+
+## Sorting helper
+
+The `sorted.py` script scans directories listed in `sorted-list.txt` and copies
+original images into a `Sorted/` folder located next to the script. Each line
+in `sorted-list.txt` should contain an absolute path to a directory. Only files
+without size suffixes such as `-150x150` or `-scaled` are collected. Run the
+script with:
+
+```bash
+python sorted.py
+```
+
+Missing directories are reported but skipped.
