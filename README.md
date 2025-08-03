@@ -23,13 +23,13 @@ icon in the system tray and reacts to global hotkeys.
 
 ## Usage
 
-Select a link in your browser and press `Ctrl+Space`. The script copies the
-selection to the clipboard and appends the URL to `system/download-list.txt`.
+Copy a link to your clipboard and press `Ctrl+Space`. The script takes the
+clipboard contents and appends the URL to `system/download-list.txt`.
 
 ## Changing hotkeys
 
 The script registers global shortcuts. By default `Ctrl+Space` adds the
-current selection to the list and `Ctrl+Shift+Space` starts downloading. You
+ contents of the clipboard to the list and `Ctrl+Shift+Space` starts downloading. You
 can redefine these keys at runtime: right-click the tray icon and choose
 **Горячие клавиши**, then press the new combination and hit Enter. The chosen
 values are stored in `system/config.ini` and loaded on the next launch.
@@ -73,3 +73,14 @@ Set `clipboard_only = true` under the `[options]` section to use the current
 clipboard contents when adding a link instead of sending `Ctrl+C` to copy the
 selection. This is useful for browsers or programs that block automated copy
 commands.
+
+## Shop parser
+
+The `scripts/shop_parser.py` utility downloads every product image from a
+WooCommerce shop. Run the script with the shop URL and it will create an
+`img/` directory mirroring the category and product structure. Images are saved
+with numbered filenames.
+
+```
+python scripts/shop_parser.py https://fialki-ok.ru/shop/
+```
